@@ -1,288 +1,275 @@
 # VBA Microsoft Excel AddIns Installation for Automation Task
-Creating Add-Ins in Microsoft Excel through VBA code greatly simplifies the automation process. Its main advantage is saving memory and eliminating the need to open multiple worksheets (.xlsb) to run macros. If you’re new to VBA and Excel macros, you’ll want to read my notes on [getting started](#how-to-get-started). For further assistance and detailed requests, please feel free to contact me through the profile information -->  kindly to warm request to (WA) +62 87738014079.
+Creating Add-Ins in Microsoft Excel through VBA code greatly simplifies the automation process. Its main advantage is saving memory and eliminating the need to open multiple worksheets (.xlsb) to run macros. If you’re new to VBA and Excel macros, you’ll want to read my notes on [getting started](#how-to-get-started). For further assistance and detailed requests, please feel free to contact me through the profile information -->  kindly warm request to (WdA) +62 87738014079.
 
-**Happy Excelling..**
 
 # Contents
-* [*How to get started*](#how-to-get-started)
-* [*Notes and Caveats*](#macro-notes--caveats)
-* [Format Top Row of your table](#format-top-row)
-* [Better number format](#better-number-format)
-* [Better AutoFilter](#better-autofilter)
-* [Check worksheet for formulas](#formula-check)
-* [Check worksheet for #N/As](#na-check)
-* [Filter table for selected cell](#filter-for-only-selected)
-* [Filter table and remove selected cell](#filter-out-remove-selected)
-* [Reset active cell to top left for all sheets in workbook](#reset-active-cell-to-top-left-for-all-sheets-in-workbook)
-* [Remove external links](#remove-external-links)
-* [Select Uniques (by removing duplicates from selection)](#select-uniques)
-* [Comma Separate Selection](#comma-separate-selection)
+* [*How to Get Started*](#how-to-get-started)
+* [Automation prepare data](#Automation-prepare-data)
+* [Create your own formuula](#Create-your-own-formula)
+* [Auto SumAllFields in PivotTable](#Auto-SumAllFields-in-PivotTable)
+* [Automation IF formula with VBA](#Automation-IF-formula-with-VBA)
+* [Advance Multiple Compare Data](#Advance-Multiple-Compare-Data)
+* [Notes & Best Practices for Macros](#Notes-&-Best-Practices-for-Macros)
 
 
 
-## Format Top Row
-This may be my most-used macro. In one click it format the table header and freeze the top pane. It makes tables a lot easier on the eyes and knows exactly what to format.
+## Automation prepare data
+This is the common use of macros: performing data filtering from raw to clean often takes a lot of time, especially when the task is repetitive. Moreover, if the dataset is large, it can cause lagging during the process. By using custom macros, all of this can be avoided.
 
 ```bas
-'Purpose: Freezes and formats the top row of your table to make it easier to look at and work with
-'Active sheet only
-Dim toprow As Range
-'If there's <=1 used cell in row 1 then check if the active cell is inside the table to format
-If Application.WorksheetFunction.CountA(Range("1:1")) > 1 Then
-    Set toprow = Range("A1:" & Range("IV1").End(xlToLeft).Address)
-Else
-    Dim tbl As Range
-    Set tbl = Selection.CurrentRegion
-    'If the active cell is not inside of a table then inform user and end macro
-    If tbl.Count = 1 Then
-        MsgBox "Couldn't find a table to format! Click a cell in the table and run again", vbExclamation, "Couldn't find table!"
-        Exit Sub
-    End If
-    Dim firstcell As Range
-    Set firstcell = tbl.Cells(1, 1)
-    Set toprow = Range(firstcell, firstcell.Offset(0, tbl.Columns.Count - 1))
-End If
-Cells(toprow.Row + 1, 1).Select
-ActiveWindow.FreezePanes = False
-ActiveWindow.FreezePanes = True
-'Sets a grey background with white bold text
-With toprow.Interior
-    .Pattern = xlSolid
-    .PatternColorIndex = xlAutomatic
-    .ThemeColor = xlThemeColorDark2
-    .TintAndShade = -0.249977111117893
-    .PatternTintAndShade = 0
-End With
-toprow.Font.Bold = True
-toprow.Font.Color = vbWhite
-```
-[➥full code](/macros/format_top_row.bas)
-    
-## Better Number Format
-I usually want my numbers formatted like this: `452,199`  
-Not like this: `452199`  
-Not like this: `452,199.00`  
-And not like this: `|_____452,199|` (right justified)
+Sub Automate_PMC_Weekly()
+'
+' Automate_PMC_Weekly_Check Macro
+'
 
-This means centered, with a comma separator, and no decimals. Crazily, the only way to do this is with many clicks (I think 8 is the least) through the `Format Cells` dialog. FTFY:
+'
 
-```bas
-Selection.NumberFormat = "#,##0"
-Selection.HorizontalAlignment = xlCenter
-```
-[➥full code](/macros/number_format.bas)
-
-## Better AutoFilter
-I filter my tables a lot, so I made one button that enables auto-filter on a table, clears any existing filters, and shuts auto-filter. It cuts down on clicks and is really how the auto-filter button should work.
-
-```bas
-On Error Resume Next
-If ActiveSheet.FilterMode = True Then
+    ActiveCell.Offset(3, 11).Range("A1").Select
+    ActiveSheet.Range("$A$4:$CJ$5395").AutoFilter Field:=12, Criteria1:=Array( _
+        "3", "5", "6", "9", "="), Operator:=xlFilterValues
+    ActiveCell.Offset(0, 1).Range("A1").Select
+    ActiveSheet.Range("$A$4:$CJ$5395").AutoFilter Field:=13, Criteria1:="="
+    ActiveCell.Offset(1, -12).Range("A1").Select
+    Range(Selection, Selection.End(xlDown)).Select
+    Range(Selection, Selection.End(xlDown)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Selection.Delete Shift:=xlUp
+    On Error Resume Next
     ActiveSheet.ShowAllData
-Else
-    Selection.AutoFilter
-End If
-```
-[➥full code](/macros/better_autofilter.bas)
+    On Error GoTo 0
+    ActiveCell.Offset(-1, 9).Range("A1").Select
+    ActiveSheet.Range("$A$4:$CJ$2199").AutoFilter Field:=10, Criteria1:="C"
+    ActiveCell.Offset(407, -9).Range("A1").Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlDown)).Select
+    Range(Selection, Selection.End(xlDown)).Select
+    Range(Selection, Selection.End(xlDown)).Select
+    Range(Selection, Selection.End(xlDown)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Selection.Delete Shift:=xlUp
+    On Error Resume Next
+    ActiveSheet.ShowAllData
+    On Error GoTo 0
+    Dim lastRows As Long
+    Dim j As Long
 
-## Formula Check
-With a single click this macro will select all cells containing a formula on the active sheet. This is useful if you’re going to publish or share a spreadsheet and want the values hard coded. After running it, you can look at the status bar (bottom right) to see how many cells/formulas are selected.
+    ' Find the last row in column A
+    lastRows = ActiveSheet.Cells(Rows.Count, "A").End(xlUp).Row
 
-```bas
-On Error GoTo err
-    Cells.SpecialCells(xlCellTypeFormulas).Select
-Exit Sub
-err:
-    If err.Number = 1004 Then MsgBox "No Formulas Here!"
-```
-[➥full code](/macros/check_for_formulas.bas)
-
-## #N/A Check
-Don’t be the guy or gal that sends out spreadsheets with `#N/A` all over it. Use this macro to highlight all of these in your current tab. It will catch other types of error cells too, like `DIV/0!`. You can prevent errored formulas by wrapping your formula in an `iferror(your_formula,value_if_error)`. After running it, you can look at the status bar (bottom right) to see how many cells/#NAs are selected.
-
-```bas
-On Error GoTo err
-    Cells.SpecialCells(xlCellTypeFormulas, xlErrors).Select
-Exit Sub
-err:
-    If err.Number = 1004 Then MsgBox "No Errors Here!"
-```
-[➥full code](/macros/check_for_errors.bas)
-
-## Filter for ONLY Selected
-I was using this macro before it was built into Excel. It will filter your table and show you just values of the cell you have selected. Alternatively, you can right click on the cell and go to `Filter` → `Filter by Selected Cell’s Value`
-
-```bas
-'Can be used multiple times on multiple columns
-'Only filters one cell so select first cell cell if multiple are selected
-If Selection.Count > 1 Then ActiveCell.Select
-'Check for existing filter
-If ActiveSheet.AutoFilterMode = False Then Selection.AutoFilter
-'Autofilter uses column number relative to the table
-filtercolumn = ActiveCell.Column - ActiveSheet.AutoFilter.Range.Column + 1
-'Check for error cell
-If IsError(Selection.Value) Then cellvalue = Selection.Text Else cellvalue = Selection.Value
-'Filter
-Selection.AutoFilter Field:=filtercolumn, Criteria1:="=" & cellvalue
-```
-[➥full code](/macros/filter_by_selection.bas)
-
-## Filter out (remove) Selected
-This does the opposite of above and filters out or removes only the selected value from your table. For instance, say you have a list of orders and want to remove all orders with a $0 value. Just click $0 in the table and then run this macro. 
-
-```bas
-'Can be used multiple times multiple columns
-'Only filters one cell so select first cell cell if multiple are selected
-If Selection.Count > 1 Then ActiveCell.Select
-'Check for existing filter
-If ActiveSheet.AutoFilterMode = False Then Selection.AutoFilter
-'Autofilter uses column number relative to the table
-filtercolumn = ActiveCell.Column - ActiveSheet.AutoFilter.Range.Column + 1
-'Check for error cell
-If IsError(Selection.Value) Then cellvalue = Selection.Text Else cellvalue = Selection.Value
-'Filter
-Selection.AutoFilter Field:=filtercolumn, Criteria1:="<>" & cellvalue, Operator:=xlAnd
-```
-[➥full code](/macros/filter_out_selection.bas)
-
-## Reset active cell to top left for all sheets in workbook
-This is a great feature if you share spreadsheets with a lot of tabs. It simply cycles through all your sheets placing the active cell on the top left. Useful when you're sharing spreadsheets
-
-```bas
-Dim currsheet As Worksheet
-Dim sheet As Worksheet
-Set currsheet = ActiveSheet
-'Change A1 to suit your preference
-Const TopLeft As String = "A1"
-'Loop through all the sheets in the workbook
-For Each sheet In Worksheets
-    'Only does this for visible worksheets
-    If sheet.Visible = xlSheetVisible Then Application.GoTo sheet.Range(TopLeft), scroll:=True
-Next sheet
-currsheet.Activate
-```
-[➥full code](/macros/top_left_active_cell.bas)
-
-## Remove External Links
-If you’re sharing spreadsheets and you occasionally reference other workbooks, this macro is a must. The macro gives you a few options for replacing external references with their values -- you can just remove external references in the selected cells, or the entire active worksheet, or the entire workbook. You can't undo this function so use with caution!
-
-```bas
-'Only applies to cells in selection
-Dim replaced As Integer
-replaced = 0
-wholebook = MsgBox("Do you want to Remove External Formulas from the whole WORKBOOK? Click no for active sheet or selection. You Can't Undo This!!", vbYesNoCancel + vbInformation, "Apply to whole WORKBOOK?")
-If wholebook = vbCancel Then Exit Sub
-If wholebook = vbNo Then
-    wholesheet = MsgBox("Do you want to Remove External Formulas from the whole WORKSHEET? Click no if you just want to remove from the selection. You Can't Undo This!!", vbYesNoCancel, "Apply to whole WORKSHEET?")
-    If wholesheet = vbCancel Then Exit Sub
-    If wholesheet = vbYes Then ActiveSheet.UsedRange.Select
-    For Each cell In Selection
-        If InStr(cell.Formula, "!") > 0 Then
-            cell.Value = cell.Value
-            replaced = replaced + 1
+    ' Loop through the rows from the bottom to the top
+    For j = lastRows To 1 Step -1
+        ' Check if the cell in column A contains "M69"
+        If InStr(1, ActiveSheet.Cells(j, "A").Value, "M69", vbTextCompare) > 0 Then
+            ' If "M69" is found, delete the entire row
+            ActiveSheet.Rows(j).Delete
         End If
-    Next cell
-Else
-    For Each sheet In ActiveWorkbook.Worksheets
-        For Each cell In sheet.UsedRange
-            If InStr(cell.Formula, "!") > 0 Then
-               cell.Value = cell.Value
-               replaced = replaced + 1
-            End If
-        Next cell
-    Next sheet
-End If
-MsgBox replaced & " formula(s) removed!"
+    Next j
 ```
-[➥full code](/macros/kill_external_formulas.bas)
 
-## Select Uniques
-This can be achieved a few ways in Excel, but I like my way best :) It selects only unique values in your selection. There’s a number of use-cases here. 
+[➥full code](/Excel-VBA-Automation-Process/Module4.bas)
+    
+## Create your own formula
+If cell A1 contains the value: `A`,
+and cell A2 contains the value: `null`,
+and cell A3 contains the value: `null`,
+
+I want to extract the data from `A1:A3` and get only the unique value. **Excel does not provide such a formula by default**, but we can create it using VBA code.
+
+By running a custom formula that we build ourselves, for example `=FILLEDVALUE(A1:A3)`, the data can be extracted instantly. This is just an example—identify the challenges in your work, and new formulas can be created easily to solve them.
+```bas
+Function FILLEDVALUE(rng As Range) As Variant
+    Dim cell As Range
+    Dim hasil As String
+    hasil = ""
+    
+    For Each cell In rng.Cells
+        If cell.Value <> "" Then
+            hasil = cell.Value
+```
+
+[➥full code](/Excel-VBA-Automation-Process/Module2.bas)
+
+## Auto SumAllFields in PivotTable
+The most exhausting part of working with PivotTables is that the column data must be set to `SUM` But when you’re dealing with more than 20 columns, isn’t that tiring? With this function, everything can be changed with just a single click on yout tab.
 
 ```bas
-'Selection does not need to be a single range, but it does need to be on the same sheet.
-If Selection.Count > 5000 Then
-    response = MsgBox("This could take a while", vbOKCancel + vbInformation)
-    If response = vbCancel Then Exit Sub
-End If
-ReDim vals(Selection.Count)
-Dim uniques As Range
-'Cycle through all values in selection
-For Each cell In Selection
-    'Skip blank cells and errored cells
-    If Not IsError(cell) And Not IsEmpty(cell) Then
-        'Set first value
-        If uniques Is Nothing Then
-            Set uniques = cell
-            vals(1) = cell.Value
-            uniq_counter = 2
+Sub SumAllValueFields()
+  Dim pt As PivotTable
+  Dim pf As PivotField
+  Dim ws As Worksheet
+
+  Set ws = ActiveSheet
+  Set pt = ws.PivotTables(1)
+  Application.ScreenUpdating = False
+
+    pt.ManualUpdate = True
+    For Each pf In pt.DataFields
+```
+[➥full code](/Excel-VBA-Automation-Process/Module1.bas)
+
+## Automation IF formula with VBA
+If you often use the `IF` formula, it can indeed be very useful, right? However, when it’s used repeatedly on the same type of data with different conditions, it becomes quite exhausting—and I strongly do not recommend doing so. Why not make it automatic instead? Extract the data and generate the output exactly as we want.
+
+```bas
+Function MBGENERATE(cell As Range) As Variant
+    Dim cellValue As String
+    cellValue = UCase(Trim(cell.Value))
+    
+    If cellValue = "Company" Or cellValue = "example" Or cellValue = "IN HOUSE" Or cellValue = "example" Or cellValue = "example" Or cellValue = "INHOUSE" Then
+        MBGENERATE = 1
+    ElseIf cellValue = "PROTERIAL (THAILAND)" Or cellValue = "example" Or cellValue = "example" Or cellValue = "CAC PHILIPPINES, INC." Or cellValue = "LS AUTOMOTIVE (CHINA)" Or cellValue = "METHODE ELECTRONICS (SHANGHAI) CO., LTD" Or cellValue = "YAMAHA (JAPAN)" Or cellValue = "MMDD" Or cellValue = "MMTT" Or cellValue = "PROTERIAL (THAILAND)" Or cellValue = "CAC PHILIPPINES, INC." Or cellValue = "CONTINENTAL AUTOMOTIVE SYSTEMS (SHANGHAI) CO., LTD." Or cellValue = "METHODE ELECTRONICS (SHANGHAI) CO., LTD" Or cellValue = "MMC#2" Or cellValue = "METHODE ELECTRONIC (MALTA)" Or cellValue = "MMC #3" Or cellValue = "LS AUTOMOTIVE" Then
+        MBGENERATE = 5
+    ElseIf cellValue = "example" Or cellValue = "example" Or cellValue = "example" Or cellValue = "example" Then
+        MBGENERATE = 6
+```
+[➥full code](/Excel-VBA-Automation-Process/Module7.bas)
+
+## Advance Multiple Compare Data
+Don’t be the guy staring at the screen, checking every single cell for errors. The formula `=A1=A2` only works for comparing two cells. But what if you need to compare more than 2 cells—3 cells, 4 cells, and so on? **Excel doesn’t provide such a formula**. That’s why we can create our own, for example: `=RANGECOMPARE(A1:A2,B1:B2)`.
+
+```bas
+Function RANGECOMPARE(ParamArray ranges() As Variant) As Boolean
+    Dim i As Long, j As Long
+    Dim baseRange As Range
+    Dim cell1 As Range
+    Dim isEqual As Boolean
+    
+    ' Ensure there is at least two ranges to compare
+    If UBound(ranges) < 1 Then
+        MsgBox "Harus ada minimal dua rentang untuk dibandingkan.", vbExclamation
+        RANGECOMPARE = False
+        Exit Function
+    End If
+    
+    ' Ensure all ranges have the same number of cells
+    Set baseRange = ranges(0)
+    For i = 1 To UBound(ranges)
+        If baseRange.Count <> ranges(i).Count Then
+            MsgBox "Jumlah rentang sel yang dibandingkan harus sama.", vbExclamation
+            RANGECOMPARE = False
+            Exit Function
         End If
-        'Check each cell against previously set unique values
-        For checker = 1 To uniq_counter - 1
-            If vals(checker) = cell.Value Then Exit For
-            If checker = uniq_counter - 1 Then
-                Set uniques = Union(uniques, cell)
-                vals(uniq_counter) = cell.Value
-                uniq_counter = uniq_counter + 1
-            End If
-        Next checker
-    End If
-Next cell
-'Select unique range if it exists
-If Not uniques Is Nothing Then uniques.Select
+    Next i
 ```
-[➥full code](/macros/select_uniques.bas)
+[➥full code](/Excel-VBA-Automation-Process/Module9.bas)
 
-## Comma Separate Selection
-This is a really useful feature if you use SQL or use a BI tool that filters on comma separated values. It simply takes all of your cells in a selection and comma separates them into a near by cell. The macro will ask you if you want to wrap the values in quotes (for strings). It can be used with the `Select Uniques` macro to only comma separate unique values in a selection.
 
-```bas
-Dim outputcell As Range
-Set outputcell = Range("IV1").End(xlToLeft).Offset(0, 1)
-'Wrap comma separated values in quotes yes/no
-apos = MsgBox("Add apostrophes?", vbYesNo, "Add apostrophes and wrap selections in quotes?")
-If apos = vbYes Then apos = True Else apos = False
-For Each cell In Selection
-    If cell.Value <> "" Then
-        If apos = False Then outputcell.Value = outputcell.Value & cell.Value & ", "
-        If apos = True Then outputcell.Value = outputcell.Value & "'" & cell.Value & "', "
-    End If
-Next cell
-'Removes trailing comma
-outputcell.Value = Left(outputcell.Value, Len(outputcell.Value) - 2)
-```
-[➥full code](/macros/comma_separate_selection.bas)
+## Notes & Best Practices for Macros
 
-## Macro Notes & Caveats:
-* There’s no undo for a macro! (Unless you program one in)
-* You need to get `PERSONAL.XLSB` working so the macros are always available. You also want to add these macros as buttons on your Ribbon. See next section for both.
-* Excel for Mac has come a really long way, but you can't currently choose a custom icon for Macros on your ribbon :(
-* These macros have been working like a charm for me, but there's always room for improvement.
-* If you're new to macros, you can learn a lot from recording yourself doing it and/or googling "VBA + thing-you're-trying-to-do". Recording macros is really useful but try to remove the fluff and absolutely references that it writes.
-* "Step Into" your macros to go line by line and see what's happening as it runs. You can drag variables or statements to the "Watch Window" to see how they're evaluated as you step through.
-* Try to change, tweak, add to these to make them more personalized for you!
-* If you copy and paste from above, be sure to wrap it in `Sub WhateverMacroYouWant()` and `End Sub`.
-* Find me on (LinkedIn)[https://www.linkedin.com/in/scottschaen/] and send me some feedback, or propose a file change by forking this project.
+- **No Undo Functionality**  
+  Once a macro runs, its changes cannot be undone (unless you specifically code an undo routine). Always test on a backup file before applying it to critical data.
+- **Make Macros Accessible**  
+  Set up your `PERSONAL.XLSB` so macros are available across all workbooks. You can also add them to your Excel Ribbon for one-click access.
+- **Platform Differences**  
+  Excel for Mac has improved greatly, though some limitations remain—for example, you currently cannot assign custom icons to macros on the ribbon.
+- **Continuous Improvement**  
+  These macros have been tested extensively, but there is always room for refinement. Feel free to adapt and enhance them for your workflow.
+- **Learning by Recording**  
+  If you’re new to VBA, start by recording a macro to see the generated code. Then clean it up by removing redundant or absolute references. Searching *“VBA + [your task]”* can also speed up your learning process.
+- **Debugging Tips**  
+  Use “Step Into” mode to run your macro line by line and watch variables in real time. Add them to the *Watch Window* to better understand how your logic executes.
+- **Personalization**  
+  Modify, extend, and optimize these macros to align with your own needs and working style.
+- **Usage Reminder**  
+  When copying code from here, wrap it inside a proper `Sub … End Sub` block before running.
+- **Feedback & Collaboration**  
+  I welcome feedback and collaboration. Connect with me on [LinkedIn](https://www.linkedin.com/in/muhamad-dio/) or fork this project and propose improvements directly.
 
-## How To Get Started:
-### You need to create a "Personal Macro Workbook" so that **your macros are always available** when Excel is open.
 
-You can read the [Windows Documentation](https://support.office.com/en-gb/article/copy-your-macros-to-a-personal-macro-workbook-aa439b90-f836-4381-97f0-6e4c3f5ee566#OfficeVersion=Windows) or the [Mac Documentation](https://support.office.com/en-gb/article/copy-your-macros-to-a-personal-macro-workbook-aa439b90-f836-4381-97f0-6e4c3f5ee566#OfficeVersion=macOS) but the gist is this:  
-&nbsp;&nbsp;&nbsp; a) Enable the Developer tab for your Excel ribbon  
-&nbsp;&nbsp;&nbsp; b) Click `Record Macro` and choose to store the macro in "Personal Macro Workbook"  
-&nbsp;&nbsp;&nbsp; c) `Stop Recording` the macro and click the `Visual Basic` button (or press <kbd>alt</kbd><kbd>F11</kbd>)  
-&nbsp;&nbsp;&nbsp; d) On the project explorer (top left) find `PERSONAL.XLSB`, expand `Modules`, and that's where you want to store all of your macros. You can leave them all in `Module1` or separate them. I prefer less modules, but it doesn't make a huge difference. Remember to Save!
+## How to Get Started
+### Excel Add-In Installation Guide
 
-### When you have your macros saved in `PERSONAL.XLSB` you want to **customize the ribbon** and add them as commands/buttons there.
+To install an Add-In and make it appear on the Excel Ribbon, you need a file with the `.xlam` extension.  
+This is the official format for Excel Add-Ins, containing a collection of VBA macro modules.  
 
-**Windows:** Right click anywhere on the ribbon and select `Customize the Ribbon...`
-**Mac:** `Excel` → `Preferences` → `Ribbon & Toolbar`
+---
 
-<p align="center">
-  <img width="900" src="/images/macro_ribbon_and_config.png">
-</p>
+### Benefits
+- Apply the data analysis concept **DRY (Don't Repeat Yourself)** to repetitive work within the same data structure.  
+- Speed up processing time from minutes to a maximum of **10 seconds**.  
+- Avoid lagging during the **filter → select → delete** process.  
+---
 
-(You can read about this in my 5 Stupid Easy Excel Tips)[https://github.com/ScottSchaen/stupid-easy-excel-tips/blob/master/README.md#5-customize-the-home-ribbon--load-it-up-with-only-useful-functions]
+### Installation Steps
 
-**Happy Excelling,**  
-**Scott**
+1. Download the `.xlam` Add-In file.  
+2. Save the file in: 'C:\Users\09NVRXTD\AppData\Roaming\Microsoft\AddIns' the user name is different for each computer
+> Note: The username (shown here as <span style="color:red">09NVRXTD</span>) will be different on each computer.  
+3. Go to the **Microsoft Excel Ribbon**, open the **Developer Tab**, and click **Excel Add-ins**. Browse and select the **Automate Data Preparation** file. Check **Automation Data Preparation** → click **OK**.  
+4. On the **Developer Tab**, click **Visual Basic**, then open **Module 5**. Click **Reset** → **Run Sub/UserForm (F5)** → **Save (CTRL + S)**.  
+5. Press **Alt + Q** to close and return to Microsoft Excel.  
+6. The **Data Preparation** tab (with 3 functions) will appear automatically.  
+7. Close Microsoft Excel.  
+8. Reopen Microsoft Excel.  
+
+---
+
+✅ You now have the Add-In installed and ready to use.
+
+
+
+
+**Happy Excelling** 
+
+**Dio**
