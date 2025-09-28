@@ -269,10 +269,8 @@ This is the official format for Excel Add-Ins, containing a collection of VBA ma
 ---
 
 ✅ You now have the Add-In installed and ready to use.
+<br><br>    
+<br><br>  
+**Happy Excelling and Thank you**  
 
-
-
-
-**Happy Excelling** 
-
-**Dio**
+**Dio~**
