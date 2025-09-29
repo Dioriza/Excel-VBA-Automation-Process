@@ -130,7 +130,7 @@ Sub Automate_PMC_Weekly()
     Next j
 ```
 
-[➥full code](/Excel-VBA-Automation-Process/Module4.bas)
+[➥full code](/Module4.bas)
     
 ## Create your own formula
 If cell A1 contains the value: `A`,
@@ -151,7 +151,7 @@ Function FILLEDVALUE(rng As Range) As Variant
             hasil = cell.Value
 ```
 
-[➥full code](/Excel-VBA-Automation-Process/Module2.bas)
+[➥full code](/Module2.bas)
 
 ## Auto SumAllFields in PivotTable
 The most exhausting part of working with PivotTables is that the column data must be set to `SUM` But when you’re dealing with more than 20 columns, isn’t that tiring? With this function, everything can be changed with just a single click on yout tab.
@@ -186,7 +186,7 @@ Function MBGENERATE(cell As Range) As Variant
     ElseIf cellValue = "example" Or cellValue = "example" Or cellValue = "example" Or cellValue = "example" Then
         MBGENERATE = 6
 ```
-[➥full code](/Excel-VBA-Automation-Process/Module7.bas)
+[➥full code](/Module7.bas)
 
 ## Advance Multiple Compare Data
 Don’t be the guy staring at the screen, checking every single cell for errors. The formula `=A1=A2` only works for comparing two cells. But what if you need to compare more than 2 cells—3 cells, 4 cells, and so on? **Excel doesn’t provide such a formula**. That’s why we can create our own, for example: `=RANGECOMPARE(A1:A2,B1:B2)`.
@@ -215,7 +215,7 @@ Function RANGECOMPARE(ParamArray ranges() As Variant) As Boolean
         End If
     Next i
 ```
-[➥full code](/Excel-VBA-Automation-Process/Module9.bas)
+[➥full code](/Module9.bas)
 
 
 ## Notes & Best Practices for Macros
