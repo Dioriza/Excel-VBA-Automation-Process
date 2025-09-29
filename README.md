@@ -128,6 +128,7 @@ Sub Automate_PMC_Weekly()
             ActiveSheet.Rows(j).Delete
         End If
     Next j
+......
 ```
 
 [➥full code](/Module4.bas)
@@ -154,7 +155,7 @@ Function FILLEDVALUE(rng As Range) As Variant
 [➥full code](/Module2.bas)
 
 ## Auto SumAllFields in PivotTable
-The most exhausting part of working with PivotTables is that the column data must be set to `SUM` But when you’re dealing with more than 20 columns, isn’t that tiring? With this function, everything can be changed with just a single click on yout tab.
+The most exhausting part of working with PivotTables is that the column data must be set to `SUM` But when you’re dealing with more than 20 columns, isn’t that tired? With this function, everything can be changed with just a single click on your tab.
 
 ```bas
 Sub SumAllValueFields()
@@ -168,11 +169,12 @@ Sub SumAllValueFields()
 
     pt.ManualUpdate = True
     For Each pf In pt.DataFields
+.....
 ```
 [➥full code](/Excel-VBA-Automation-Process/Module1.bas)
 
 ## Automation IF formula with VBA
-If you often use the `IF` formula, it can indeed be very useful, right? However, when it’s used repeatedly on the same type of data with different conditions, it becomes quite exhausting—and I strongly do not recommend doing so. Why not make it automatic instead? Extract the data and generate the output exactly as we want.
+If you often use the `IF` formula, it can indeed be very useful, right? However, when it’s used repeatedly on the same type of data with different conditions, it becomes quite exhausting—and I strongly do not recommend doing so. Why not make it automatic instead? Extract the data and generate the output exactly as we want. You can create new formula like this `=MBGENERATE(A1)` and output decide on your choice like `=IF()` formula. but more expert.
 
 ```bas
 Function MBGENERATE(cell As Range) As Variant
@@ -185,6 +187,7 @@ Function MBGENERATE(cell As Range) As Variant
         MBGENERATE = 5
     ElseIf cellValue = "example" Or cellValue = "example" Or cellValue = "example" Or cellValue = "example" Then
         MBGENERATE = 6
+.....
 ```
 [➥full code](/Module7.bas)
 
@@ -214,6 +217,7 @@ Function RANGECOMPARE(ParamArray ranges() As Variant) As Boolean
             Exit Function
         End If
     Next i
+.....
 ```
 [➥full code](/Module9.bas)
 
@@ -250,14 +254,15 @@ This is the official format for Excel Add-Ins, containing a collection of VBA ma
 
 ### Benefits
 - Apply the data analysis concept **DRY (Don't Repeat Yourself)** to repetitive work within the same data structure.  
-- Speed up processing time from minutes to a maximum of **10 seconds**.  
-- Avoid lagging during the **filter → select → delete** process.  
+- Speed up processing time from minutes to a maximum of **3 seconds**.  
+- Avoid lagging during the **filter → select → delete** process.
+- Implement your repetition task to automation.
 ---
 
 ### Installation Steps
 
 1. Download the `.xlam` Add-In file.  
-2. Save the file in: 'C:\Users\09NVRXTD\AppData\Roaming\Microsoft\AddIns' the user name is different for each computer
+2. Save the file in:  `C:\Users\09NVRXTD\AppData\Roaming\Microsoft\AddIns` the user name is different for each computer
 > Note: The username (shown here as <span style="color:red">09NVRXTD</span>) will be different on each computer.  
 3. Go to the **Microsoft Excel Ribbon**, open the **Developer Tab**, and click **Excel Add-ins**. Browse and select the **Automate Data Preparation** file. Check **Automation Data Preparation** → click **OK**.  
 4. On the **Developer Tab**, click **Visual Basic**, then open **Module 5**. Click **Reset** → **Run Sub/UserForm (F5)** → **Save (CTRL + S)**.  
