@@ -12,6 +12,7 @@ Creating Add-Ins in Microsoft Excel through VBA code greatly simplifies the auto
 * [Auto SumAllFields in PivotTable](#Auto-SumAllFields-in-PivotTable)
 * [Automation IF formula with VBA](#Automation-IF-formula-with-VBA)
 * [Advance Multiple Compare Data](#Advance-Multiple-Compare-Data)
+* [Checking Data Anomalies](#Checking-Data-Anomalies)
 * [Notes & Best Practices for Macros](#Notes-&-Best-Practices-for-Macros)
 
 
@@ -37,30 +38,6 @@ Sub Automate_PMC_Weekly()
     Range(Selection, Selection.End(xlDown)).Select
     Range(Selection, Selection.End(xlToRight)).Select
     Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
     Selection.Delete Shift:=xlUp
     On Error Resume Next
     ActiveSheet.ShowAllData
@@ -70,44 +47,8 @@ Sub Automate_PMC_Weekly()
     ActiveCell.Offset(407, -9).Range("A1").Select
     Range(Selection, Selection.End(xlToRight)).Select
     Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
     Range(Selection, Selection.End(xlDown)).Select
     Range(Selection, Selection.End(xlDown)).Select
-    Range(Selection, Selection.End(xlDown)).Select
-    Range(Selection, Selection.End(xlDown)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
-    Range(Selection, Selection.End(xlToRight)).Select
     Range(Selection, Selection.End(xlToRight)).Select
     Range(Selection, Selection.End(xlToRight)).Select
     Selection.Delete Shift:=xlUp
@@ -128,7 +69,9 @@ Sub Automate_PMC_Weekly()
             ActiveSheet.Rows(j).Delete
         End If
     Next j
-......
+....
+....
+....
 ```
 
 [➥full code](/Module4.bas)
@@ -140,7 +83,7 @@ and cell A3 contains the value: `null`,
 
 I want to extract the data from `A1:A3` and get only the unique value. **Excel does not provide such a formula by default**, but we can create it using VBA code.
 
-By running a custom formula that we build ourselves, for example `=FILLEDVALUE(A1:A3)`, the data can be extracted instantly. This is just an example—identify the challenges in your work, and new formulas can be created easily to solve them.
+By running a custom formula that we build ourselves, for example `=FILLEDVALUE(A1:A3)`, the data can be extracted instantly. the output will be `A` and ignore `null` value. This is just an example—identify the challenges in your work, and new formulas can be created easily to solve them.
 ```bas
 Function FILLEDVALUE(rng As Range) As Variant
     Dim cell As Range
@@ -150,12 +93,15 @@ Function FILLEDVALUE(rng As Range) As Variant
     For Each cell In rng.Cells
         If cell.Value <> "" Then
             hasil = cell.Value
+....
+....
+....
 ```
 
 [➥full code](/Module2.bas)
 
 ## Auto SumAllFields in PivotTable
-The most exhausting part of working with PivotTables is that the column data must be set to `SUM` But when you’re dealing with more than 20 columns, isn’t that tired? With this function, everything can be changed with just a single click on your tab.
+The most exhausting part of working with PivotTables is that the column data must be set to `SUM` But when you’re dealing with more than 20 columns, isn’t that tired? With this function, everything can be changed with just a single click on your tab. you can change calculate function into COUNT or whatever, depend on your needs.
 
 ```bas
 Sub SumAllValueFields()
@@ -169,7 +115,9 @@ Sub SumAllValueFields()
 
     pt.ManualUpdate = True
     For Each pf In pt.DataFields
-.....
+....
+....
+....
 ```
 [➥full code](/Excel-VBA-Automation-Process/Module1.bas)
 
@@ -181,18 +129,20 @@ Function MBGENERATE(cell As Range) As Variant
     Dim cellValue As String
     cellValue = UCase(Trim(cell.Value))
     
-    If cellValue = "Company" Or cellValue = "example" Or cellValue = "IN HOUSE" Or cellValue = "example" Or cellValue = "example" Or cellValue = "INHOUSE" Then
+    If cellValue = "Green" Or cellValue = "Red" Or cellValue = "Brown" Or cellValue = "example1" Or cellValue = "example2" Or cellValue = "example3" Then
         MBGENERATE = 1
-    ElseIf cellValue = "PROTERIAL (THAILAND)" Or cellValue = "example" Or cellValue = "example" Or cellValue = "CAC PHILIPPINES, INC." Or cellValue = "LS AUTOMOTIVE (CHINA)" Or cellValue = "METHODE ELECTRONICS (SHANGHAI) CO., LTD" Or cellValue = "YAMAHA (JAPAN)" Or cellValue = "MMDD" Or cellValue = "MMTT" Or cellValue = "PROTERIAL (THAILAND)" Or cellValue = "CAC PHILIPPINES, INC." Or cellValue = "CONTINENTAL AUTOMOTIVE SYSTEMS (SHANGHAI) CO., LTD." Or cellValue = "METHODE ELECTRONICS (SHANGHAI) CO., LTD" Or cellValue = "MMC#2" Or cellValue = "METHODE ELECTRONIC (MALTA)" Or cellValue = "MMC #3" Or cellValue = "LS AUTOMOTIVE" Then
+    ElseIf cellValue = "example3" Or cellValue = "example4" Or cellValue = "example5" Or cellValue = "example6" Or cellValue = "example7" Or cellValue = "example8" Or cellValue = "example9" Or cellValue = "example10" Or cellValue = "example11" Or cellValue = "example12" Or cellValue = "example13" Or cellValue = "example14" Or cellValue = "example15" Or cellValue = "example16" Or cellValue = "example17" Or cellValue = "example18" Or cellValue = "example19" Then
         MBGENERATE = 5
-    ElseIf cellValue = "example" Or cellValue = "example" Or cellValue = "example" Or cellValue = "example" Then
+    ElseIf cellValue = "example20" Or cellValue = "example21" Or cellValue = "example22" Or cellValue = "example23" Then
         MBGENERATE = 6
-.....
+....
+....
+....
 ```
 [➥full code](/Module7.bas)
 
 ## Advance Multiple Compare Data
-Don’t be the guy staring at the screen, checking every single cell for errors. The formula `=A1=A2` only works for comparing two cells. But what if you need to compare more than 2 cells—3 cells, 4 cells, and so on? **Excel doesn’t provide such a formula**. That’s why we can create our own, for example: `=RANGECOMPARE(A1:A2,B1:B2)`.
+Don’t be the guy staring at the screen, checking every single cell for errors. The formula `=A1=A2` only works for comparing two cells. But what if you need to compare more than 2 cells—3 cells, 4 cells, and so on? **Excel doesn’t provide such a formula**. That’s why we can create our own, for example: `=RANGECOMPARE(A1:A2,B1:B2)` and output will be same as `=A1=A2`, `TRUE` or `FALSE`.
 
 ```bas
 Function RANGECOMPARE(ParamArray ranges() As Variant) As Boolean
@@ -217,10 +167,60 @@ Function RANGECOMPARE(ParamArray ranges() As Variant) As Boolean
             Exit Function
         End If
     Next i
-.....
+....
+....
+....
 ```
 [➥full code](/Module9.bas)
 
+## Checking Data Anomalies
+I have a rule that all leveling data must follow a strict sequence, and certain columns are not allowed to contain duplicate values. If there is any deviation from this sequence, it is classified as an error. Checking this manually is relatively simple in theory, but with over 7,000 rows of data, the process becomes time-consuming and highly impractical.
+
+By clearly defining the anomaly rules, we can leverage automation to improve efficiency. With the help of a macro, the system can instantly scan the dataset, identify any irregularities, and highlight the specific rows that contain errors—all with a single click. This not only eliminates the need for manual inspection but also ensures consistency, accuracy, and significant time savings in large-scale data validation processes.
+
+```bas
+Sub Check_Error_Level()
+    Dim ws As Worksheet
+    Dim lastRow As Long
+    Dim i As Long
+    Dim LV1 As Variant, LV2 As Variant
+    Dim J1 As String, J2 As String
+    Dim FP1 As String, FP2 As String
+    Dim P1 As String, P2 As String
+    Dim answer As VbMsgBoxResult
+    Dim found As Boolean
+    
+    Set ws = ActiveSheet
+    lastRow = ws.Cells(ws.Rows.Count, "D").End(xlUp).Row
+    found = False
+    
+    For i = 2 To lastRow - 1
+        LV1 = ws.Cells(i, "D").Value
+        LV2 = ws.Cells(i + 1, "D").Value
+        J1 = Trim(CStr(ws.Cells(i, "J").Value))
+        J2 = Trim(CStr(ws.Cells(i + 1, "J").Value))
+        FP1 = Trim(CStr(ws.Cells(i, "O").Value))
+        FP2 = Trim(CStr(ws.Cells(i + 1, "O").Value))
+        P1 = Trim(CStr(ws.Cells(i, "P").Value))
+        P2 = Trim(CStr(ws.Cells(i + 1, "P").Value))
+        
+        ' Abaikan jika kolom O atau P kosong
+        If Len(FP1) = 0 Or Len(FP2) = 0 Or Len(P1) = 0 Or Len(P2) = 0 Then GoTo NextLoop
+        ' ==========================
+        ' Rule 1: cek urutan sequence level numeric +1
+        ' ==========================
+        If IsNumeric(LV1) And IsNumeric(LV2) Then
+            If LV2 = LV1 + 1 Then
+                If FP1 = FP2 Then
+                    If Not (J1 = "K" And J2 = "C") Then
+                        found = True
+                        ws.Rows(i).Interior.Color = vbYellow
+                        ws.Rows(i + 1).Interior.Color = vbYellow
+....
+....
+....
+```
+[➥full code](/Module13.bas)
 
 ## Notes & Best Practices for Macros
 
@@ -264,7 +264,7 @@ This is the official format for Excel Add-Ins, containing a collection of VBA ma
 1. Download the `.xlam` Add-In file.  
 2. Save the file in:  `C:\Users\09NVRXTD\AppData\Roaming\Microsoft\AddIns` the user name is different for each computer
 > Note: The username (shown here as <span style="color:red">09NVRXTD</span>) will be different on each computer.  
-3. Go to the **Microsoft Excel Ribbon**, open the **Developer Tab**, and click **Excel Add-ins**. Browse and select the **Automate Data Preparation** file. Check **Automation Data Preparation** → click **OK**.  
+3. Go to the **Microsoft Excel Ribbon**, open the **Developer Tab**, and click **Excel Add-ins**. Browse and select the **Automate Data Preparation1** file. Check **Automation Data Preparation1** → click **OK**.  
 4. On the **Developer Tab**, click **Visual Basic**, then open **Module 5**. Click **Reset** → **Run Sub/UserForm (F5)** → **Save (CTRL + S)**.  
 5. Press **Alt + Q** to close and return to Microsoft Excel.  
 6. The **Data Preparation** tab (with 3 functions) will appear automatically.  
