@@ -5,10 +5,10 @@
 Creating Add-Ins in Microsoft Excel through VBA code greatly simplifies the automation process. Its main advantage is saving memory and eliminating the need to open multiple worksheets (.xlsb) to run macros. If you’re new to VBA and Excel macros, you’ll want to read my notes on [Getting Started](#how-to-get-started). For further assistance and detailed requests, please feel free to contact me through the profile information -->  kindly warm request to **(WA) +62 87738014079**.
 
 
-# Contents
+# Table of Contents
 * [*How to Get Started*](#how-to-get-started)
 * [Automation prepare data](#Automation-prepare-data)
-* [Create your own formuula](#Create-your-own-formula)
+* [Create your own formula](#Create-your-own-formula)
 * [Auto SumAllFields in PivotTable](#Auto-SumAllFields-in-PivotTable)
 * [Automation IF formula with VBA](#Automation-IF-formula-with-VBA)
 * [Advance Multiple Compare Data](#Advance-Multiple-Compare-Data)
@@ -122,7 +122,7 @@ Sub SumAllValueFields()
 [➥full code](/Excel-VBA-Automation-Process/Module1.bas)
 
 ## Automation IF formula with VBA
-If you often use the `IF` formula, it can indeed be very useful, right? However, when it’s used repeatedly on the same type of data with different conditions, it becomes quite exhausting—and I strongly do not recommend doing so. Why not make it automatic instead? Extract the data and generate the output exactly as we want. You can create new formula like this `=MBGENERATE(A1)` and output decide on your choice like `=IF()` formula. but more expert.
+If you often use the `IF` formula, it can indeed be very useful, right? However, when it’s used repeatedly on the same type of data with different conditions, it becomes quite exhausting—and I strongly do not recommend doing so. Why not make it automatic instead? Extract the data and generate the output exactly as we want. You can create new formula like this `=MBGENERATE(A1)` and output decide on your choice like `=IF()` formula. but more expert and efficient.
 
 ```bas
 Function MBGENERATE(cell As Range) As Variant
