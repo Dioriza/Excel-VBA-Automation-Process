@@ -2,7 +2,7 @@
 ![Tab](images.jpg)
 
 ---
-Creating Add-Ins in Microsoft Excel through VBA code greatly simplifies the automation process. Its main advantage is saving memory and eliminating the need to open multiple worksheets (.xlsb) to run macros. If you’re new to VBA and Excel macros, you’ll want to read my notes on [Getting Started](#how-to-get-started). For further assistance and detailed requests, please feel free to contact me through the profile information -->  kindly warm request to **(WA) +62 87738014079**.
+Creating Add-Ins in Microsoft Excel through VBA code greatly simplifies the automation process. Its main advantage is saving memory and eliminating the need to open multiple worksheets (.xlsb) to run a macros. If you’re new to VBA and Excel macros, you’ll want to read my notes on [Getting Started](#how-to-get-started). For further assistance and detailed requests, please feel free to contact me through the profile information -->  kindly warm request to **(WA) +62 87738014079**.
 
 
 # Table of Contents
